@@ -14,11 +14,12 @@ function alpha = linesearch(fhandle, x, v, lsparams)
 
     alpha = alphabar;
 
-    % ...
-
-    while alpha >= alphamin
-        % ...
+    [fx, ~]=fhandle(x);
+    norm2v= dot(v,v);
+    [fxalpha, ~]=fhandle(x-alpha*v);
+    while alpha >= alphamin && fx-fxalpha< c*alpha*norm2v
         alpha = rho * alpha;
+        [fxalpha, ~]=fhandle(x-alpha*v);
     end
     
     if(rho * alpha < alphamin)
