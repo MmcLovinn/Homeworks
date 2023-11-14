@@ -4,5 +4,5 @@ function big_phi_X = bigphi(X, P)
 % output: the value of the function capital phi
 
 phi_X=phi(X,P);
-big_phi_X=sum(phi_X,3);
+big_phi_X=sum(phi_X,2);
 end
