@@ -12,8 +12,8 @@ plot_f(X1, X2, P, y);
 %check Dphi:
 
 ts= logspace(-8,0, 101);
-x=rand(2,1);
-v=rand(2,1);
+x=randn(2,1);
+v=randn(2,1);
 phix=phi(x,P);
 Dphix=Dphi(x,P);
 err_phi=[];
@@ -27,8 +27,8 @@ loglog(err_phi,ts, ts.^2, ts);
 % q 6:
 ts= logspace(-8,0, 101);
 K=10;
-X= rand(2,K)-1/2;
-U= rand(2,K);
+X= randn(2,K)-1/2;
+U= randn(2,K);
 vec_U=mat2vec(U);
 f_X=f(X,P,y);
 gradient_f_X=mat2vec(gradient_f(X,P,y));
