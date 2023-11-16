@@ -1,3 +1,4 @@
 function d= dotmat(A, B)
-d=dot(mat2vec(A),mat2vec(B));
+%computes the dot product of 2 matrices
+d=sum(A.*B,"all");
 end
