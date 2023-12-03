@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1701560600 "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" "main.pdf" "main" 1701560602 0
+["pdflatex"] 1701629507 "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" "main.pdf" "main" 1701629509 0
   "C:/Users/vlad/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701540997 81919 f03c646d66c2441846ff09182cd09695 ""
   "C:/Users/vlad/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1701540999 11548 48d6b1ac8b5e4653fd20ead927cb71a9 ""
   "C:/Users/vlad/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1678195091 23175325 36b647d1299ede60cfd4ea83151593e0 ""
@@ -148,9 +148,9 @@
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/wasysym/wasysym.sty" 1579693002 11252 7fbfbe7bbcbe1f73acbe32ae2f10c666 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656233290 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" 1701560599 25464 8b8e2d24aee04b8dea88cdf488a33db8 ""
-  "main.aux" 1701560601 649 cb4330c8edcfd82b198888725000d4c7 "pdflatex"
-  "main.tex" 1701560599 25464 8b8e2d24aee04b8dea88cdf488a33db8 ""
+  "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" 1701629507 26183 ac37c19ece4f8dffbe5e13f5f3eb1cca ""
+  "main.aux" 1701629509 649 cb4330c8edcfd82b198888725000d4c7 "pdflatex"
+  "main.tex" 1701629507 26183 ac37c19ece4f8dffbe5e13f5f3eb1cca ""
   (generated)
   "main.aux"
   "main.log"

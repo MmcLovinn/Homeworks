@@ -272,8 +272,38 @@ Then we can rewrite \(T_xS\) as:
   T_xS=\left\{v\in \es \ : \ H(x)v=0\right\} =\ker H(x)  
 \]
 
-As \(T_xS\) is a sub-vector space of \(\es\) of dimension \(n-p\) (since all the lines of \(H(x)\) are linearly independent), we know that the projection of \(z\in \es\) exists and is unique.
+As \(T_xS\) is a sub-vector space of \(\es\) of dimension \(n-p\) (since all the lines of \(H(x)\) are linearly independent), we know that the projection of \(z\in \es\) exists and is unique. 
 
+By SVD, there exist \(V\in\mathbb{R}^{n\times n}\) and \(U\in\mathbb{R}^{p\times p}\) orthogonal matrices and \(D\in\mathbb{R}^{p\times n}\) such that:
+\[
+  UH(x)V^T=D
+\]
+\[
+  D=\begin{pmatrix}
+    \begin{matrix}
+    \sigma_1 &  &  & \\
+     & \sigma_2 &  & \\
+     &  & \ddots & \\
+     &  &  & \sigma_p\\
+    \end{matrix} & O_{p\times(n-p)}\\
+    \end{pmatrix}  
+\]
+where \(\sigma_1,\dots,\sigma_p\) are the singular values of \(H(x)\).
+
+Then, since \(U\) and \(V\) are orthogonal, we have:
+\[
+  v\in T_xS\iff H(x)v=0\iff UH(x)V^TVv=0\iff DVv=0\iff Vv\in \ker D  
+\]
+and, as V is orthogonal, we have:
+\[
+  \frac{1}{2}\|z-v\|^2= \frac{1}{2}\|Vz-Vv\|^2  
+\]
+
+So, we have:
+
+\[
+  \proj_{T_xS}(z)= \proj_{\ker D}(Vz) 
+\]
 
 \newpage
 
