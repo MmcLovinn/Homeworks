@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1701541416 "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" "main.pdf" "main" 1701541418 0
+["pdflatex"] 1701560600 "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" "main.pdf" "main" 1701560602 0
   "C:/Users/vlad/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701540997 81919 f03c646d66c2441846ff09182cd09695 ""
   "C:/Users/vlad/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1701540999 11548 48d6b1ac8b5e4653fd20ead927cb71a9 ""
   "C:/Users/vlad/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1678195091 23175325 36b647d1299ede60cfd4ea83151593e0 ""
@@ -27,7 +27,6 @@
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy10.tfm" 1136765053 1124 6c73e740cf17375f03eec0ee63599741 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy6.tfm" 1136765053 1116 933a60c408fc0a863a92debe84b2d294 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy8.tfm" 1136765053 1120 8b7d695260f3cff42e636090a8002094 ""
-  "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmti10.tfm" 1136765053 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/wasy/wasy10.tfm" 1578656704 908 375dcd194b89b9cc9481ab62f2da0667 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/wasy/wasy5.tfm" 1578656739 908 9b2ed8097703005e83b790aecb955a2f ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/tfm/public/wasy/wasy6.tfm" 1578656733 912 8da0595e5e615d33e0b2860959a58bf8 ""
@@ -51,8 +50,8 @@
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1247593066 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1247593066 32716 08e384dc442464e7285e891af9f45947 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247593067 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
-  "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1247593067 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1247593073 34694 870c211f62cb72718a00e353f14f254d ""
+  "C:/Users/vlad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb" 1247593073 35309 940e81a5b9e04201a07e8b33a3ae6e64 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580390158 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/generic/atbegshi/atbegshi.sty" 1575571100 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/generic/bigintcalc/bigintcalc.sty" 1576433602 40635 c40361e206be584d448876bba8a64a3b ""
@@ -149,9 +148,9 @@
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/wasysym/wasysym.sty" 1579693002 11252 7fbfbe7bbcbe1f73acbe32ae2f10c666 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/vlad/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656233290 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" 1701541415 26472 09d9e13884903dc216db58cbba01adb4 ""
-  "main.aux" 1701541418 649 cb4330c8edcfd82b198888725000d4c7 "pdflatex"
-  "main.tex" 1701541415 26472 09d9e13884903dc216db58cbba01adb4 ""
+  "c:/Users/vlad/OneDrive - epfl.ch/Documents/teme facultate/optimizare continua/HW3/main.tex" 1701560599 25464 8b8e2d24aee04b8dea88cdf488a33db8 ""
+  "main.aux" 1701560601 649 cb4330c8edcfd82b198888725000d4c7 "pdflatex"
+  "main.tex" 1701560599 25464 8b8e2d24aee04b8dea88cdf488a33db8 ""
   (generated)
   "main.aux"
   "main.log"

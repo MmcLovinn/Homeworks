@@ -13,165 +13,275 @@
 \usepackage[colorlinks, bookmarks=false, linkcolor=black, urlcolor=blue, citecolor=black]{hyperref}
 \usepackage{matlab-prettifier}
 \usepackage[top=2.5cm, bottom=3 cm, left=3.5cm, right=3.5cm]{geometry}
+\usepackage{xcolor}
+
+\pagecolor{black}
+\color{white}
+
+\newcommand*{\proj}{\text{Proj}}
+\newcommand*{\es}{\mathcal{E}}
+
 \title{MATH-329 Nonlinear optimization
 Homework 3: Constrained optimization}
 \author{Alix Pelletier 346750 \\ Vlad Burca 344876 \\ Ismail Bouhaj 326480}
 \date{11/2023}
 \begin{document}
 \maketitle 
-\section*{Question 1} 
-We investigate the projection of a point onto a set in the context of constrained optimization. Specifically, we examine the existence of such a projection under certain conditions. The problem is formalized as follows: Given a Euclidean space \( E \) with an inner product \( \langle \cdot, \cdot \rangle \) and associated norm \( \lVert \cdot \rVert \), and a set \( Q \subseteq E \), the projection of a point \( z \in E \) to \( Q \) is defined as the set of solutions of the optimization problem
-\begin{equation}
-    \text{minimize}\quad \frac{1}{2} \lVert x - z \rVert^2 \quad \text{subject to} \quad x \in Q.
-\end{equation}
-We denote the set of minimizers by \( \text{Proj}_Q(z) \).
-
-We aim to show that if \( Q \) is non-empty and closed, then \( \text{Proj}_Q(z) \) is non-empty.
-
-\textbf{Solution:}
-
-\begin{enumerate}
-
-    \item \textbf{Continuity of the Function:} The squared distance function \( f(x) = \frac{1}{2} \lVert x - z \rVert^2 \)  defined for \( x \in Q \)  is continuous since the norm \( \lVert \cdot \rVert \) is a continuous function, and the composition of continuous functions is continuous.
-
-    \item \textbf{Compactness of the Set \( Q \):} The set \( Q \) is non-empty and closed. For Weierstrass' theorem to apply directly, \( Q \) also needs to be bounded. If \( Q \) is unbounded, an alternative argument is required.
-
-    \item \textbf{Applying Weierstrass' Theorem:} If \( Q \) is compact, then by Weierstrass' theorem, \( f(x) \) attains its minimum on \( Q \), and this minimum point is \( \text{Proj}_Q(z) \).
-
-    \item \textbf{Non-Compact Case:} If \( Q \) is not bounded, consider a minimizing sequence \( \{x_n\} \subset Q \) where \( f(x_n) \rightarrow \inf \{ f(x) : x \in Q \} \). Due to the coerciveness of \( f \), this sequence is bounded. By the closedness of \( Q \) and the Bolzano-Weierstrass theorem, a convergent subsequence exists, converging to a point in \( Q \). This limit point is the projection of \( z \) onto \( Q \).
-\end{enumerate}
-
-In conclusion, \( \text{Proj}_Q(z) \) is non-empty if \( Q \) is non-empty and closed. The existence of the projection is guaranteed either by Weierstrass' theorem (if \( Q \) is also bounded) or through a convergence argument involving minimizing sequences (if \( Q \) is unbounded).
-
-
-
-\section*{Question 2} 
-We consider a scenario in Euclidean space where the projection of a point onto a set is not a singleton. This example illustrates the existence of multiple points in a set that are equidistant to a given point, leading to a projection that comprises more than one point.
-
-\textbf{Example:}
-
-Let \( E \) be the Euclidean plane, \( \mathbb{R}^2 \), and define \( Q \) as a closed line segment in this plane. Specifically, let \( Q \) be the line segment joining the points \( (1,0) \) and \( (-1,0) \). Now, consider a point \( z \) in \( E \), which is the origin \( (0,0) \).
-
-In this case, the projection of \( z \) onto \( Q \), denoted as \( \text{Proj}_Q(z) \), is not a single point. Instead, it comprises the entire line segment \( Q \). Mathematically, this is represented as:
-\begin{equation}
-    \text{Proj}_Q(z) = \{ x \in Q \} = \text{line segment between } (1,0) \text{ and } (-1,0).
-\end{equation}
-
-This example demonstrates that in certain geometrical configurations, the projection of a point onto a set in a Euclidean space can result in multiple points, especially when the set contains points that are equidistant to the point being projected.
-
-
-\section*{Question 3} 
-We aim to show that for a non-empty closed cone \( C \) in a Euclidean space, \( \text{Proj}_C(z) = \{0\} \) if and only if \( z \in C^\circ \), where \( C^\circ \) denotes the polar cone of \( C \).
-
-\textbf{Proof:}
-
-\begin{itemize}
-    \item \textbf{\( \text{Proj}_C(z) = \{0\} \Rightarrow z \in C^\circ \):} Assume \( \text{Proj}_C(z) = \{0\} \). This implies the point in \( C \) closest to \( z \) is the origin. By the optimality conditions for the projection onto a cone, for any \( x \in C \), it holds that \( \langle z, x \rangle \leq \langle 0, x \rangle = 0 \). Therefore, \( z \) satisfies the definition of being in the polar cone \( C^\circ \).
-
-    \item \textbf{\( z \in C^\circ \Rightarrow \text{Proj}_C(z) = \{0\} \):} Now, assume \( z \in C^\circ \). This implies that for all \( x \in C \), \( \langle z, x \rangle \leq 0 \). To show that the origin is the closest point in \( C \) to \( z \), consider the optimization problem \( \text{min}_{x \in C} \frac{1}{2} \|x - z\|^2 \). The first-order optimality condition gives \( \langle x - z, y - x \rangle \geq 0 \) for all \( y \in C \) and \( x \) as the minimizer. By choosing \( x = 0 \) and using \( z \in C^\circ \), we have \( \langle -z, y \rangle \geq 0 \) for all \( y \in C \), which is satisfied by the definition of the polar cone. Thus, the origin is the minimizer, and \( \text{Proj}_C(z) = \{0\} \).
-\end{itemize}
-
-In conclusion, the projection of \( z \) onto the cone \( C \) is the singleton set containing only the origin if and only if \( z \) belongs to the polar cone \( C^\circ \).
-
-\section*{Question 4} 
-
-We prove that a point \( x^* \in S \) is stationary for the problem \( \text{min}_{x \in S} f(x) \), where \( f : E \rightarrow \mathbb{R} \) is differentiable, if and only if \( \text{Proj}_{T_{x^*}S}(-\nabla f(x^*)) = \{0\} \). Here, \( T_{x^*}S \) denotes the tangent cone at \( x^* \).
-
-\textbf{Proof:}
-
-\begin{enumerate}
-    \item \textbf{Stationarity implies zero projection:} Assume \( x^* \) is stationary. This means that for any feasible direction \( v \in T_{x^*}S \), the directional derivative of \( f \) at \( x^* \) in the direction \( v \) is non-negative, i.e., \( \langle \nabla f(x^*), v \rangle \geq 0 \). Hence, \( -\nabla f(x^*) \) cannot have a component in the direction of any vector in \( T_{x^*}S \), and thus its projection onto \( T_{x^*}S \) is zero.
-
-    \item \textbf{Zero projection implies stationarity:} Now assume \( \text{Proj}_{T_{x^*}S}(-\nabla f(x^*)) = \{0\} \). This indicates that the negative gradient at \( x^* \) has no component in the direction of any vector in the tangent cone \( T_{x^*}S \). Therefore, for any feasible direction \( v \in T_{x^*}S \), \( \langle \nabla f(x^*), v \rangle \) must be non-negative, which implies that \( x^* \) is a stationary point.
-\end{enumerate}
-
-In conclusion, the stationarity of \( x^* \) in the constrained optimization problem is equivalent to the condition that the projection of the negative gradient at \( x^* \) onto the tangent cone at \( x^* \) is zero.
-
-\section*{Question 5} 
-
-
-Let \( C \) be a closed cone in a Euclidean space \( E \). We prove the following properties of projections onto \( C \):
-
-\textbf{Part (a):} Show that if \( v \in \text{Proj}_C(z) \), then \( \langle v, z - v \rangle = 0 \).
-
-\textit{Proof:} The projection of \( z \) onto \( C \) minimizes \( \frac{1}{2}\|x - z\|^2 \) for \( x \in C \). For \( v \in \text{Proj}_C(z) \), the first-order optimality condition gives:
+\section*{Part 1 : Projections to cones and stopping criteria in constrained optimization.}
+\subsection*{Question 1} \hfil\par
+Since \(Q\) is non-empty, Let \(x_0\in Q\). Then by definition of the minimizer, we have:
 \[
-\langle z - v, x - v \rangle \geq 0 \quad \text{for all} \quad x \in C.
+  \min_{x\in Q} \frac{1}{2}\|x-z\|^2 \leq \frac{1}{2}\|x_0-z\|^2
 \]
-Choosing \( x = 0 \), we obtain \( \langle v, z - v \rangle = 0 \).
 
-\textbf{Part (b):} Show that all projections of \( z \in E \) to \( C \) have the same norm.
-
-\textit{Proof:} Suppose \( v_1, v_2 \in \text{Proj}_C(z) \). From part (a), \( \langle v_1, z - v_1 \rangle = 0 \) and \( \langle v_2, z - v_2 \rangle = 0 \). By the Pythagorean theorem:
+Inspired by this, let us define the space \(Q'\subseteq Q\) as the intersection of \(Q\) with the closed ball \(\bar B(\|x_0-z\|,z)\) of center \(z\) and radius \(\|x_0-z\|\):
 \[
-\|z\|^2 = \|v_1\|^2 + \|z - v_1\|^2 \quad \text{and} \quad \|z\|^2 = \|v_2\|^2 + \|z - v_2\|^2.
+    Q'=Q\cap \bar B(\|x_0-z\|,z)  
 \]
-Since \( \|z - v_1\| = \|z - v_2\| \), we conclude that \( \|v_1\| = \|v_2\| \).
 
-\section*{Question 6} 
+We have \(Q'\neq \emptyset\) since \(x_0\in Q'\). Moreover, \(Q'\) is closed since it is the intersection of two closed sets. Finally, \(Q'\) is bounded since it is contained in the closed ball \(\bar B(\|x_0-z\|,z)\). Therefore, \(Q'\) is compact. By Weierstrass, the function \(f(x)=\frac{1}{2}\|x-z\|^2\) attains its minimum on \(Q'\). So the set:
+\[
+    \proj_{Q'}(z)=\left\{x\in Q': \frac{1}{2}\|x-z\|^2=\min_{y\in Q'}\frac{1}{2}\|y-z\|^2\right\}    
+\]
+is well-defined and non-empty.
+
+We want to show that \(\proj_{Q'}(z)=\proj_Q(z) \). Let \(x\in Q\setminus Q'\). Then:
+\[
+    \|x-z\|>\|x_0-z\|\implies 
+\]
+\[
+    \frac{1}{2}\|x-z\|^2>\frac{1}{2}\|x_0-z\|^2\geq \min_{y\in Q'}\frac{1}{2}\|y-z\|^2
+\]
+
+So the minimizer of \(\frac{1}{2}\|y-z\|^2 \) on \(Q'\) is also the minimizer of \(\frac{1}{2}\|y-z\|^2\) on \(Q\). Therefore, \(\proj_{Q'}(z)=\proj_Q(z) \).
+
+\subsection*{Question 2} 
+Let \(\es:=\mathbb{R};\ S:=\{-1,1\};\ z:=0\). Then clearly \(S\) is closed (union of 2 singletons). Moreover, we have:
+\begin{align*}
+    \frac{1}{2}\|z-s\|^2&=\frac{1}{2}\|s\|^2=\frac{1}{2}\ \text{for all}\ s\in S \implies \\
+\end{align*}
+\[
+    \proj_S(z)=\{1,-1\} 
+\]
+
+\subsection*{Question 3} 
+
+\subsubsection*{\textbf{\( \text{Proj}_C(z) = \{0\} \implies z \in C^\circ \):}}\hfil\par 
+Assume \( \text{Proj}_C(z) = \{0\} \). This implies the point in \( C \) closest to \( z \) is the origin. So for any \( x \in C \):
+ \begin{align*}
+        \frac{1}{2} \|x - z\|^2 &\geq \frac{1}{2} \|0 - z\|^2 \\
+        \|x\|^2-2\langle x, z\rangle +\|z\|^2 &\geq \|z\|^2 \\
+        \|x\|^2  -2\langle x, z\rangle &\geq 0\\
+ \end{align*}
+
+ Now if \(\langle x, z\rangle > 0\), for some \(x\) then we have:
+ \[
+   \lambda:=\frac{\langle x, z\rangle}{\|z\|^2}>0\implies \lambda x\in C 
+ \]
+
+ But then, plugging \(\lambda x\) in the inequality above, we get:
+\[
+    \lambda^2\|x\|^2-2\lambda\langle x, z\rangle \geq 0\iff      
+\]
+\[
+    \left(\frac{\langle x, z\rangle}{\|z\|^2}\right)^2\|x\|^2-2\frac{\langle x, z\rangle}{\|z\|^2}\langle x, z\rangle \geq 0\iff
+\]
+\[
+  -\frac{\langle x, z\rangle^2 }{\|x\|^2} \geq 0 
+\]
+
+Which is clearly a contradiction. Therefore, we must have \(\langle x, z\rangle \leq 0\) for all \(x\in C\). This implies \(z\in C^\circ\), by definition.
+\subsubsection*{\( z \in C^\circ  \implies \text{Proj}_C(z) = \{0\} \):}\hfil\par
+Assume \( z \in C^\circ \). We want to show that for all \(x\in C\setminus\{0\}\) we have: 
+\[
+    \frac{1}{2} \|x - z\|^2 > \frac{1}{2} \|0 - z\|^2 
+\]
+
+By the above calculations this is equivalent to showing that for all \(x\in C\setminus\{0\}\) we have:
+\[
+    \|x\|^2  -2\langle x, z\rangle > 0  
+\]
+
+But this is true since \(z\in C^\circ\), so \(\langle x, z\rangle\leq 0\) for all \(x\in C\) and \(x\neq 0\). Therefore, we have:
+\[
+  \proj_C(z)=\{0\}  
+\]
+\subsection*{Question 4} \hfil\par
+We know from class that \(x^*\in S\) is a stationary point of \(f\) if and only if \(-\nabla f(x^*)\in (T_{x^*}S)^\circ\). By Question 3, this is equivalent to:
+ \[\text{Proj}_{T_{x^*}S}(-\nabla f(x^*))=\{0\}\]
+\pagebreak
+\subsection*{Question 5}\hfil\par 
+\subsubsection*{(a)\quad \(v\in \proj_C(z)\implies \langle v, z-v\rangle = 0\):}\hfil\par
+Let:
+
+\begin{align*}
+    g: \es &\to \quad \quad \mathbb{R}\\
+    x &\mapsto \frac{1}{2}\|x-z\|^2
+\end{align*} 
+    
+Then \(g\) is differentiable and for\(h\in \mathbb{R}\) and \(v\in\es\) we have:
+\begin{align*}
+g(x+hv)=\frac{1}{2}\|x+hv-z\|^2&=\frac{1}{2}\|x-z\|^2+h\langle v, x-z\rangle+\frac{h^2}{2}\|v\|^2\\
+&=g(x)+h\langle v, x-z\rangle+O(h^2)\implies         
+\end{align*}
+\[
+  \nabla g(x)= x-z 
+\]
+If \(v\in \proj_C(z)\) then \(v\) is a stationary point of \(g\) (as \(v\) is a global minimum of \(g\)). Therefore, we have: 
+\[
+  \langle \nabla g(v), w\rangle \geq 0, \quad  \forall\ w\in T_vC
+\]
+\[
+  \langle v-z, w\rangle \geq 0, \quad  \forall\ w\in T_vC   
+\]
+It is clear that if we show that \(v,\ -v \in T_vC\) we are done. But this is true since \(v\in C\) and \(C\) is a cone.
+
+Let \(\left((1-\frac{1}{n})v\right)_{n\in \mathbb{N}^*}\subseteq C\), \(\left((1+\frac{1}{n})v\right)_{n\in \mathbb{N}^*}\subseteq C\) then: 
+\[
+  \lim_{n\to \infty}\left((1-\frac{1}{n})v\right)=v,\quad \lim_{n\to \infty}\left((1+\frac{1}{n})v\right)=v 
+\]
+and:
+\[
+  \lim_{n\to \infty}\left(\frac{(1-\frac{1}{n})v-v}{\frac{1}{n}}\right)=\lim_{n\to \infty}\left(\frac{-\frac{1}{n}v}{\frac{1}{n}}\right)=-v 
+\]
+\[
+    \lim_{n\to \infty}\left(\frac{(1+\frac{1}{n})v-v}{\frac{1}{n}}\right)=\lim_{n\to \infty}\left(\frac{\frac{1}{n}v}{\frac{1}{n}}\right)=v 
+\]
+Therefore, by the definition of the tangent cone \(v,\ -v \in T_vC\). So we have:
+\begin{align*}
+    \langle v-z, v\rangle &\geq 0\\
+    \langle v-z, -v\rangle &\geq 0 \implies \\
+    -\langle v-z, v\rangle &\geq 0
+\end{align*}
+
+So we have:
+\[
+    \langle v, z-v\rangle = 0  
+\]
+\subsubsection*{(b)\quad \(v_1,\ v_2\in \proj_C(z)\implies \|v_1\|=\|v_2\|\):}\hfil\par
+By part (a), we have:
+\[
+    \langle v_1, z-v_1\rangle = 0 \implies \|v_1\|^2=\langle v_1, v_1\rangle=\langle v_1, z\rangle
+\]
+\[
+    \langle v_2, z-v_2\rangle = 0 \implies \|v_2\|^2=\langle v_2, v_2\rangle=\langle v_2, z\rangle
+\]
+Since both are minimizers of \(\frac{1}{2}\|x-z\|^2\), we have:
+\[
+    \frac{1}{2}\|v_1-z\|^2= \frac{1}{2}\|v_2-z\|^2  \implies
+\]
+\[
+  \|v_1\|^2-2\langle v_1, z\rangle+\|z\|^2=\|v_2\|^2-2\langle v_2, z\rangle+\|z\|^2\implies  
+\]
+\[
+  \|v_1\|^2=\|v_2\|^2\implies \|v_1\|=\|v_2\|
+\]
+\subsection*{Question 6} 
 
 We present an example where the function \( q(x) = \lVert \text{Proj}_{T_xS}(-\nabla f(x)) \rVert \) is discontinuous on the set \( S \). Consider the following:
 
 \textbf{Function \( f \) and Set \( S \):}
 \begin{itemize}
-    \item Function \( f \): Define \( f: \mathbb{R} \rightarrow \mathbb{R} \) as \( f(x) = x^2 \). Its gradient is \( \nabla f(x) = 2x \).
-    \item Set \( S \): Define \( S = \{x \in \mathbb{R} : x \leq 0\} \), the negative real axis including zero.
+    \item Function \( f \): Define \( f: \mathbb{R} \rightarrow \mathbb{R} \) as \( f(x) = -x^2 \). Its gradient is \( \nabla f(x)=f'(x) = -2x \).
+    \item Set \( S \): Define \( S := [0,1]\subseteq\mathbb{R}\).
 \end{itemize}
-
-\textbf{Evaluating \( q(x) \):}
+First, let's compute \(T_xS\) for all \(x\in S\). We have: 
 \begin{itemize}
-    \item At \( x = 0 \), the tangent cone \( T_0S \) is \( \{y \in \mathbb{R} : y \leq 0\} \). Since \( \nabla f(0) = 0 \), we have \( \text{Proj}_{T_0S}(-\nabla f(0)) = 0 \), thus \( q(0) = 0 \).
-    \item At \( x = \epsilon \) for a small \( \epsilon > 0 \), the tangent cone \( T_\epsilon S \) is less defined. Considering \( \nabla f(\epsilon) = 2\epsilon \), the projection is \( -2\epsilon \), and so \( q(\epsilon) = 2\epsilon \).
+    \item \(x\in(1,0)\). Then \(x\) is in the interior of \(S\) and \(T_xS=\mathbb{R}\), by example 7.10. from the lecture notes. 
+    \item \(x=0\). Then 0 is on the boundary of \(S\) and \(T_0S=[0,+\infty)\), by example 7.11. from the lecture notes (we can see 0 as the boundary for the half-space \(x\geq 0\) and locally around 0 the two spaces are the same. We conclude by the fact that the tangent cone is a local property, as any sequence \(x_k\to 0^+\) will be contained in \((0,1)\), for \(k\) big enough). 
+    \item \(x=1\). Then 1 is on the boundary of \(S\) and \(T_1S=(-\infty,0]\) (same reasoning as above, but with the half space \(x\leq 1\)).
+
+\end{itemize}
+Now, let's compute \(\text{Proj}_{T_xS}(-\nabla f(x))\) for all \(x\in S\). We have:
+\begin{itemize}
+    \item \(x\in(0,1)\). Then \(\text{Proj}_{T_xS}(-\nabla f(x))=\{-\nabla f(x)\}\), since \(T_xS=\mathbb{R}\). So:
+    \[
+        q(x)=\|2x\|=2x
+    \]
+    \item \(x=0\). Then \(\text{Proj}_{T_0S}(-\nabla f(0))=\{0\}\), since \(T_0S=[0,+\infty)\) and \(-f'(0)=0\). So:
+    \[
+        q(0)=\|0\|=0    
+    \]
+    \item \(x=1\). Then \(\text{Proj}_{T_1S}(-\nabla f(1))=\{0\}\), since \(T_1S=(-\infty,0]\) and \(-f'(1)=2\). So:
+    \[
+        q(1)=\|0\|=0    
+    \]
+
 \end{itemize}
 
-As \( \epsilon \rightarrow 0 \), \( q(\epsilon) \) approaches but does not equal 0, indicating a discontinuity at \( x = 0 \). This example demonstrates that \( q(x) \) can be discontinuous on \( S \).
+So:
+\[
+        q(x)=\begin{cases}
+            2x & \text{if } x\in[0,1)\\
+            0 & \text{if }  x=1
+        \end{cases}    
+\]
 
-\section*{Question 7} 
+Clearly, \(q\) is not continuous at \(x=1\).
+\subsection*{Question 7} \hfil\par
 
-We prove that for the set \( S = \{x \in \mathbb{R}^2 : x_1^2 + x_2^2 = 1\} \), the function \( q(x) = \lVert \text{Proj}_{T_xS}(-\nabla f(x)) \rVert \) is continuous whenever \( f \) is continuously differentiable.
+By example 7.14. from the lecture notes, we have:
+\[
+    T_xS=\left\{v\in \mathbb{R}: \langle v,x \rangle =0\right\}, \quad \forall\ x\in S
+\]
 
-\textbf{Set \( S \) and Its Tangent Cone:}
-The set \( S \) is the unit circle in \( \mathbb{R}^2 \). At any point \( x \in S \), the tangent cone \( T_xS \) is the line tangent to the circle at \( x \), consisting of vectors orthogonal to \( x \).
+For all \(x=(x_1, x_2)\in S\), let \(x^\perp=(x_2, -x_1)\in S\), then it is clear that:
+\[
+    \langle x, x^\perp\rangle =0\implies x^\perp\in T_xS
+\]
 
-\textbf{Continuity of \( q(x) \):}
-\begin{enumerate}
-    \item Since \( f \) is continuously differentiable, \( \nabla f(x) \) is continuous.
-    \item The projection onto \( T_xS \) is given by:
-    \[
-    \text{Proj}_{T_xS}(-\nabla f(x)) = -\nabla f(x) + \langle \nabla f(x), x \rangle x.
-    \]
-    \item The continuity of \( \nabla f(x) \) and the continuous operations involved in the projection imply that \( \text{Proj}_{T_xS}(-\nabla f(x)) \) is continuous. Hence, \( q(x) \) is continuous.
-\end{enumerate}
+Moreover, by a simple argument over the dimensionality of \(T_xS\) and \(\text{span}(x^\perp)\), we have:
+\[
+    T_xS= \text{span}(x^\perp)
+\]
 
-Therefore, \( q(x) \) is continuous on \( S \) for a continuously differentiable function \( f \).
+Since \(T_xS\) is a sub-vector space of \(\mathbb{R}^2\), of dimension 1 (\(\{x^\perp\}\) is an orthogonal basis), we have:
+\[
+    \text{Proj}_{T_xS}(-\nabla f(x))=\text{Proj}_{\text{span}(x^\perp)}(-\nabla f(x))=\left\{\frac{\langle -\nabla f(x), x^\perp\rangle}{\|x^\perp\|^2}x^\perp\right\}=\left\{-\langle \nabla f(x), x^\perp\rangle x^\perp\right\}
+\]
 
-\section*{Question 8} 
+So:
+\[
+  q(x)=\|- \langle \nabla f(x), x^\perp\rangle x^\perp\|=\|- \langle \nabla f(x), (x_2, -x_1)\rangle (x_2, -x_1)\|=|\langle \nabla f(x), (x_2, -x_1)\rangle|
+\]
 
-Consider \( E = \mathbb{R}^n \) with a continuously differentiable function \( h: \mathbb{R}^n \rightarrow \mathbb{R}^p \) and \( S = \{x \in \mathbb{R}^n : h(x) = 0\} \), assuming LICQ holds for all \( x \) in \( S \).
+Which is clearly a continuous map as it is a composition of continuous maps (\(\nabla f\) is continuous by assumption).
 
-\textbf{Part (a): Expression for \( T_xS \)}
-The tangent space \( T_xS \) at \( x \in S \) is the kernel of the Jacobian matrix of \( h \) at \( x \), \( Dh(x) \):
-\[ T_xS = \{ v \in \mathbb{R}^n : Dh(x)v = 0 \}. \]
+\subsection*{Question 8} \hfil\par
 
-\textbf{Part (b): Projection to \( T_xS \)}
-The projection of \( z \in \mathbb{R}^n \) onto \( T_xS \) minimizes \( \|z - v\|^2 \) subject to \( Dh(x)v = 0 \). This is a linear least squares problem and can be solved using the pseudoinverse of \( Dh(x) \), resulting in a unique solution.
+Consider \( \es = \mathbb{R}^n \) with a continuously differentiable function \( h: \mathbb{R}^n \rightarrow \mathbb{R}^p \) and \( S = \{x \in \mathbb{R}^n : h(x) = 0\} \), assuming LICQ holds for all \( x \) in \( S \).
 
-\textbf{Part (c): Continuity of \( q \)}
-The function \( q(x) = \| \text{Proj}_{T_xS}(-\nabla f(x)) \| \) is continuous on \( S \) for a continuously differentiable \( f \) due to:
-\begin{enumerate}
-    \item Continuity of \( \nabla f(x) \).
-    \item Continuity of the projection \( \text{Proj}_{T_xS}(z) \), which depends on \( z \) and \( Dh(x) \).
-    \item The composition of continuous functions is continuous, making \( x \mapsto \text{Proj}_{T_xS}(-\nabla f(x)) \) and its norm \( q(x) \) continuous.
-\end{enumerate} 
+\subsubsection*{(a) \(T_xS\)?}\hfil\par
+From the lecture notes, we have that if LICQ holds for \(x\in S\) then:
+\[
+  T_xS=F_xS=\left\{v\in \es \ : \ \langle\nabla h_i(x),v\rangle=0;\ \forall i\in\{1,2,\dots,p\}\right\}  
+\]
+\subsubsection*{(b)}\hfil\par
+Let \(H(x)\in\mathbb{R}^{p\times n}\) such that:
+\[
+  H(x)=\begin{pmatrix}
+    \nabla h_1(x)^T\\
+    \nabla h_2(x)^T\\
+    \vdots\\
+    \nabla h_p(x)^T  
+    \end{pmatrix}
+\]
+
+Then we can rewrite \(T_xS\) as:
+\[
+  T_xS=\left\{v\in \es \ : \ H(x)v=0\right\} =\ker H(x)  
+\]
+
+As \(T_xS\) is a sub-vector space of \(\es\) of dimension \(n-p\) (since all the lines of \(H(x)\) are linearly independent), we know that the projection of \(z\in \es\) exists and is unique.
 
 
 \newpage
 
 
-\section*{Part 2 : A Frank–Wolfe algorithm} 
+\section*{Part 2 : A Frank-Wolfe algorithm} 
 
 
-\section*{Question 1} 
+\subsection*{Question 1} 
 
 The minimization problem under consideration is:
 \begin{equation}
@@ -187,7 +297,7 @@ To argue that this problem always has a solution, we consider the following poin
     \item \textbf{Existence of Minimizer}: By the Extreme Value Theorem, a continuous function on a compact set attains its minimum. Therefore, the linear function \( \langle w, x \rangle \) attains a minimum over the compact and convex set \( S \), ensuring the existence of a solution.
 \end{itemize}
 
-\section*{Question 2} 
+\subsection*{Question 2} 
 To demonstrate that the minimization problem may have multiple solutions, consider the following example:
 
 \begin{itemize}
@@ -197,9 +307,9 @@ To demonstrate that the minimization problem may have multiple solutions, consid
 
 In this case, every point in \( S \) minimizes the function \( \langle w, x \rangle \) as the value is zero for all \( x \in S \). Hence, the problem has multiple solutions, with every point in the set \( S \) being a solution.
 
-\section*{Question 3} 
+\subsection*{Question 3} 
 
-\section*{Why is the Restriction \( 0 \leq \eta_k \leq 1 \) Important?}
+\subsection*{Why is the Restriction \( 0 \leq \eta_k \leq 1 \) Important?}
 
 \begin{enumerate}
     \item \textbf{Feasibility}: The feasible set \( S \) is assumed to be convex. By convexity, for any \( x, y \in S \) and \( \lambda \in [0, 1] \), the convex combination \( (1-\lambda)x + \lambda y \) is also in \( S \). In the algorithm, both \( x_k \) and \( s(x_k) \) are in \( S \), so for \( \eta_k \) in \( [0, 1] \), the updated point \( (1-\eta_k)x_k + \eta_k s(x_k) \) remains within \( S \).
@@ -214,11 +324,11 @@ In this case, every point in \( S \) minimizes the function \( \langle w, x \ran
 In conclusion, the restriction \( 0 \leq \eta_k \leq 1 \) in the Frank-Wolfe algorithm is essential for ensuring feasibility, convergence, controlled progress, and a balanced approach between exploration and exploitation.
 
 
-\section*{Question 4} 
+\subsection*{Question 4} 
 
 We analyze four key inequalities (B1) to (B4) arising in the Frank-Wolfe algorithm under the assumptions that \( f \) is convex and continuously differentiable, and its gradient \( \nabla f \) is \( L \)-Lipschitz continuous.
 
-\section*{Inequality Analysis}
+\subsection*{Inequality Analysis}
 
 \subsection*{(B1) \( f(x_{k+1}) - f(x_k) \leq \nabla f(x_k)^\top (x_{k+1} - x_k) + \frac{L}{2} \|x_{k+1} - x_k\|^2 \)}
 This inequality stems from the first-order Taylor expansion and the Lipschitz continuity of \( \nabla f \), bounding the error of the linear approximation.
@@ -233,11 +343,11 @@ Given that \( s(x_k) \) minimizes the linear approximation over \( S \), the ine
 This follows from the convexity of \( f \), which implies \( f(x^*) - f(x_k) \geq \nabla f(x_k)^\top (x^* - x_k) \). Substituting this into (B3) yields (B4).
 
 
-\section*{Question 5} 
+\subsection*{Question 5} 
 
 Given \( x_0 \in S \), let \( x_1 \) be produced by the Frank-Wolfe algorithm with \( \eta_0 = \frac{2}{0+2} = 1 \). We show that \( f(x_1) - f(x^*) \leq \frac{L}{2} d_S^2 \), where \( L \) is the Lipschitz constant of \( \nabla f \) and \( d_S \) is the diameter of \( S \).
 
-\section*{Proof}
+\subsection*{Proof}
 
 \begin{enumerate}
     \item The update rule for \( x_{k+1} \) in the Frank-Wolfe algorithm is \( x_{k+1} = (1 - \eta_k) x_k + \eta_k s(x_k) \). For \( k = 0 \), this becomes \( x_1 = s(x_0) \).
@@ -259,11 +369,11 @@ Thus, after the first iteration with \( \eta_0 = 1 \), the function value at \( 
 
 
 
-\section*{Question 6} 
+\subsection*{Question 6} 
 
 We prove that for the Frank-Wolfe algorithm with step sizes \( \eta_k = \frac{2}{k+2} \), the inequality \( f(x_k) - f(x^*) \leq \frac{2Ld^2_S}{k+2} \) holds for all \( k \geq 1 \).
 
-\section*{Proof by Induction}
+\subsection*{Proof by Induction}
 
 \subsection*{Base Case (\( k = 1 \))}
 From the previous analysis, we have \( f(x_1) - f(x^*) \leq \frac{Ld^2_S}{2} \), which satisfies the inequality for \( k = 1 \), as \( \frac{2Ld^2_S}{1+2} = \frac{Ld^2_S}{2} \).
@@ -287,51 +397,51 @@ Using \( \frac{2}{k+2} \leq \frac{2}{k+3} \), we get:
 Thus, by induction, the inequality holds for all \( k \geq 1 \).
 
 
-\section*{Question 7} 
+\subsection*{Question 7} 
 
 We show that the simplex \( \Delta_n = \{x \in \mathbb{R}^n | x_1, \ldots, x_n \geq 0 \text{ and } x_1 + \cdots + x_n = 1\} \) is convex, compact, and non-empty.
 
-\section*{Convexity}
+\subsection*{Convexity}
 A set is convex if for any two points in the set, the line segment between them is also in the set. For \( x, y \in \Delta_n \) and \( \lambda \in [0, 1] \), consider \( z = (1 - \lambda)x + \lambda y \). Since \( x_i, y_i \geq 0 \), each component \( z_i = (1 - \lambda)x_i + \lambda y_i \geq 0 \). Also, \( \sum_{i=1}^n z_i = (1 - \lambda)\sum_{i=1}^n x_i + \lambda\sum_{i=1}^n y_i = 1 \). Hence, \( z \in \Delta_n \), proving convexity.
 
-\section*{Compactness}
+\subsection*{Compactness}
 A set is compact if it is closed and bounded. \(\Delta_n\) is closed as it contains all its limit points. It is bounded because for all \( x \in \Delta_n \), \( 0 \leq x_i \leq 1 \) and \( \sum_{i=1}^n x_i = 1 \). Therefore, \(\Delta_n\) is compact.
 
-\section*{Non-emptiness}
+\subsection*{Non-emptiness}
 \(\Delta_n\) is non-empty as it contains at least the point \( x = (1, 0, \ldots, 0) \), which satisfies \( x_i \geq 0 \) and \( \sum_{i=1}^n x_i = 1 \).
 
 In conclusion, the simplex \( \Delta_n \) is convex, compact, and non-empty.
 
-\section*{Question 8} 
+\subsection*{Question 8} 
 
 \title{Minimization Problem on the Simplex \( \Delta_n \)}
 \maketitle
 
 Given a vector \( w \in \mathbb{R}^n \), we consider the problem of minimizing \( \langle w, x \rangle \) subject to \( x \in \Delta_n \), where \( \Delta_n \) is the simplex in \( \mathbb{R}^n \).
 
-\section*{Minimum of the Problem}
+\subsection*{Minimum of the Problem}
 The problem is formulated as:
 \[ \text{minimize} \quad \langle w, x \rangle \quad \text{subject to} \quad x \in \Delta_n. \]
 
-\section*{Strategy to Attain the Smallest Value}
+\subsection*{Strategy to Attain the Smallest Value}
 To minimize \( \langle w, x \rangle \), we allocate the entire weight to the component of \( x \) corresponding to the smallest component of \( w \). Let \( i^* = \arg \min_i w_i \). The minimizing vector \( x \) is such that \( x_{i^*} = 1 \) and \( x_i = 0 \) for all \( i \neq i^* \).
 
-\section*{Computational Complexity}
+\subsection*{Computational Complexity}
 The computational complexity of finding this solution is \( O(n) \), as it requires a linear scan to find the minimum component of the vector \( w \). The minimizing \( x \) is then directly obtained from the index of this minimum component.
 
 
-\section*{Question 9} 
+\subsection*{Question 9} 
 
 Given the optimization problem \( \min_{x \in \Delta_n} f(x) \) with \( f(x) = \frac{1}{2} \|Ax - b\|^2 \), we analyze whether this problem always has a solution and if the solution is unique.
 
-\section*{Existence of a Solution}
+\subsection*{Existence of a Solution}
 \begin{itemize}
     \item \textbf{Convexity of \( f(x) \)}: The function \( f(x) = \frac{1}{2} \|Ax - b\|^2 \) is convex as it is the composition of a convex function (norm squared) with an affine function.
     \item \textbf{Convexity and Compactness of \( \Delta_n \)}: The simplex \( \Delta_n \) is convex and compact.
     \item \textbf{Existence of Solution}: A convex function over a compact convex set attains its minimum. Hence, the problem always has at least one solution.
 \end{itemize}
 
-\section*{Uniqueness of the Solution}
+\subsection*{Uniqueness of the Solution}
 \begin{itemize}
     \item \textbf{Strict Convexity}: Strict convexity is necessary for uniqueness. The function \( f(x) \) is strictly convex if the matrix \( A \) has full column rank. However, with \( m < n \), \( A \) cannot have full column rank.
     \item \textbf{Multiple Solutions}: When \( A \) does not have full column rank, there can be multiple minimizers of \( f(x) \), due to directions in which \( A \) is not injective.
@@ -357,14 +467,14 @@ In conclusion, the optimization problem always has a solution, but it does not a
 
 Given the optimization problem \( \min_{x \in \Delta_n} f(x) \) with \( f(x) = \frac{1}{2} \|Ax - b\|^2 \), we analyze whether this problem always has a solution and if the solution is unique.
 
-\section*{Existence of a Solution}
+\subsection*{Existence of a Solution}
 \begin{itemize}
     \item \textbf{Convexity of \( f(x) \)}: The function \( f(x) = \frac{1}{2} \|Ax - b\|^2 \) is convex as it is the composition of a convex function (norm squared) with an affine function.
     \item \textbf{Convexity and Compactness of \( \Delta_n \)}: The simplex \( \Delta_n \) is convex and compact.
     \item \textbf{Existence of Solution}: A convex function over a compact convex set attains its minimum. Hence, the problem always has at least one solution.
 \end{itemize}
 
-\section*{Uniqueness of the Solution}
+\subsection*{Uniqueness of the Solution}
 \begin{itemize}
     \item \textbf{Strict Convexity}: Strict convexity is necessary for uniqueness. The function \( f(x) \) is strictly convex if the matrix \( A \) has full column rank. However, with \( m < n \), \( A \) cannot have full column rank.
     \item \textbf{Multiple Solutions}: When \( A \) does not have full column rank, there can be multiple minimizers of \( f(x) \), due to directions in which \( A \) is not injective.
@@ -373,7 +483,7 @@ Given the optimization problem \( \min_{x \in \Delta_n} f(x) \) with \( f(x) = \
 In conclusion, the optimization problem always has a solution, but it does not always have a unique solution due to the potential rank deficiency of \( A \).
 
 
-\section*{Question 10} 
+\subsection*{Question 10} 
 
 
 \title{Gradient of the Function for Frank-Wolfe Algorithm}
@@ -390,14 +500,14 @@ Differentiating \( f(x) \) with respect to \( x \) using matrix calculus, we obt
 This gradient represents the direction of the steepest ascent at any point \( x \) for the function \( f(x) \) and is essential for determining the search direction in each iteration of the Frank-Wolfe algorithm.
 
 
-\section*{Question 11} 
+\subsection*{Question 11} 
 
 We analyze the line-search function \( g(\eta) = f((1 - \eta)x + \eta y) \) where \( x, y \in \Delta_n \) and \( f(x) = \frac{1}{2}\|Ax - b\|^2 \) to determine the optimal values of \( \eta \in [0, 1] \).
 
-\section*{Expression for \( g(\eta) \)}
+\subsection*{Expression for \( g(\eta) \)}
 \[ g(\eta) = \frac{1}{2} \|A((1 - \eta)x + \eta y) - b\|^2 \]
 
-\section*{Optimal Value of \( \eta \)}
+\subsection*{Optimal Value of \( \eta \)}
 To find the optimal \(\eta\), we differentiate \(g(\eta)\) with respect to \(\eta\) and set the derivative to zero:
 \[ g'(\eta) = \frac{d}{d\eta} \frac{1}{2} \|A((1 - \eta)x + \eta y) - b\|^2 \]
 \[ = (A((1 - \eta)x + \eta y) - b)^\top A(y - x) \]
@@ -405,16 +515,16 @@ Setting \( g'(\eta) = 0 \) gives:
 \[ (A((1 - \eta)x + \eta y) - b)^\top A(y - x) = 0 \]
 Solving this equation for \(\eta\) gives the optimal value.
 
-\section*{Closed-Form Formula}
+\subsection*{Closed-Form Formula}
 A closed-form expression for \(\eta\) depends on the specific structure of \(A\), \(b\), \(x\), and \(y\). Without additional assumptions, the exact solution might be complex or not directly obtainable.
 
 
-\section*{Question 12} 
+\subsection*{Question 12} 
 
-\section*{Question 13} 
+\subsection*{Question 13} 
 
 
-\section*{Question 14} 
+\subsection*{Question 14} 
 
 \newpage
 
