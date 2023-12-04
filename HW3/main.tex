@@ -313,20 +313,6 @@ So, we have:
 
 \subsection*{Question 1} 
 
-The minimization problem under consideration is:
-\begin{equation}
-    \text{minimize} \quad \langle w, x \rangle \quad \text{subject to} \quad x \in S,
-\end{equation}
-where \( w = \nabla f(\bar{x}) \) for some \( \bar{x} \in S \).
-
-To argue that this problem always has a solution, we consider the following points:
-
-\begin{itemize}
-    \item \textbf{Convexity and Compactness of \( S \)}: The set \( S \) is assumed to be convex and compact in \( E = \mathbb{R}^n \).
-    \item \textbf{Continuity of the Objective Function}: The objective function \( \langle w, x \rangle \) is linear and therefore continuous.
-    \item \textbf{Existence of Minimizer}: By the Extreme Value Theorem, a continuous function on a compact set attains its minimum. Therefore, the linear function \( \langle w, x \rangle \) attains a minimum over the compact and convex set \( S \), ensuring the existence of a solution.
-\end{itemize}
-
 \subsection*{Question 2} 
 To demonstrate that the minimization problem may have multiple solutions, consider the following example:
 
