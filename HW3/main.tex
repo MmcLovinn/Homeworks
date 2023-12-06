@@ -277,7 +277,7 @@ As \(T_xS\) is a sub-vector space of \(\es\) of dimension \(n-p\) (since all the
 
 By SVD, there exist \(V\in\mathbb{R}^{n\times n}\) and \(U\in\mathbb{R}^{p\times p}\) orthogonal matrices and \(D\in\mathbb{R}^{p\times n}\) such that:
 \[
-  UH(x)V^T=D
+  UH(x)V=D
 \]
 \[
   D=\begin{pmatrix}
@@ -289,198 +289,177 @@ By SVD, there exist \(V\in\mathbb{R}^{n\times n}\) and \(U\in\mathbb{R}^{p\times
     \end{matrix} & O_{p\times(n-p)}\\
     \end{pmatrix}  
 \]
-where \(\sigma_1,\dots,\sigma_p\) are the singular values of \(H(x)\).
 
-Then, since \(U\) and \(V\) are orthogonal, we have:
+Where \(\sigma_1,\sigma_2,\dots,\sigma_p\) are the singular values of \(H(x)\).
+
+Let \(V=(v_1, v_2, \dots v_n)\), where \(v_i\in \es\). Then we can see that \(\{v_{n-p+1},v_{n-p+2},\dots,v_{n}\}\) form an orthonormal basis of \(\ker H(x)\). So we have, based on the definition of the projection, for a sub-vector space:
 \[
-  v\in T_xS\iff H(x)v=0\iff UH(x)V^TVv=0\iff DVv=0\iff Vv\in \ker D  
+  \proj_{\ker H(x)}(z)=\left\{\sum_{i=n-p+1}^{n}\langle z, v_i\rangle v_i\right\}
 \]
-and, as V is orthogonal, we have:
-\[
-  \frac{1}{2}\|z-v\|^2= \frac{1}{2}\|Vz-Vv\|^2  
-\]
-
-So, we have:
-
-\[
-  \proj_{T_xS}(z)= \proj_{\ker D}(Vz) 
-\]
-
+\subsubsection*{(c)}\hfil\par
+We can easily see that \(q\) is a continuous function, as it is a composition of continuous functions. Since \(H(x)\) is continuous, we expect that the (normalized) basis elements obtained through Gram-Schmidt (so through SVD) to not change too much. And since \(H(x)\) is always of full rank \(p\), we expect that \(\| \proj_{\ker H(x)}(z)\|\) to be continuous. Then \(q\) is just this composed with \(\nabla f\) which is continuous by assumption. So \(q\) is continuous.
 \newpage
 
 
 \section*{Part 2 : A Frank-Wolfe algorithm} 
 
 
-\subsection*{Question 1}
-\begin{align*}
-    \text{Let } g : S \rightarrow \mathbb{R} \text{ be defined by } g(x) = \langle w, x \rangle \text{ for a fixed } w \text{ and for all } x \in S. \\
-\text{Since } g \text{ is a continuous function (as the inner product of two vectors in } \mathbb{R}^n \text{ is continuous) and } \\
-\text{since } S \text{ is compact, the Weierstrass Extreme Value Theorem guarantees that } g \text{ attains its  } \\
-\text{minimum and maximum on } S.
-\end{align*} 
+\subsection*{Question 1}\hfil\par
+we can see that \(x\mapsto \langle w, x\rangle\) is a linear function, so it is continuous. Moreover, \(S\) is a compact, so by Weierstrass the value:
+\[
+    \min_{x\in S}\langle w, x\rangle
+\]
+is attained.
+\subsection*{Question 2} \hfil\par
+Set \(S=[-1,1]\times\{0\}\) and \(w=(0,1)\). Then we have:
+\[
+    \langle w, x\rangle=0 \quad \forall\ x\in S  
+\]
 
-\subsection*{Question 2} 
-\begin{align*}
-\text{Let } S &= [-1,1] \times \{0\} \text{ and } w = (0, 1). \\
-\text{Then, for any } x \in S, \text{ we have } \langle w, x \rangle &= 0. \\
-\text{Thus, every point in } S \text{ minimizes the function } \langle w, x \rangle, \text{ leading to multiple solutions.}
-\end{align*}
+So all of S is a minimizer.
+\subsection*{Question 3} \hfil\par
 
-\subsection*{Question 3} 
-
-\subsection*{Why is the Restriction \( 0 \leq \eta_k \leq 1 \) Important?}
-\begin{align*}
-\text{In the Frank–Wolfe algorithm, enforcing } 0 \leq \eta_k \leq 1 \text{ ensures } x_{k+1} \text{ remains within the feasible set } S. \\
-\text{Since } S \text{ is convex, the convex combination } (1 - \eta_k)x_k + \eta_k s(x_k) \text{ lies within } S \text{ for } \eta_k \text{ in } [0, 1]. \\
-\text{Without this restriction, there's no guarantee that } x_{k+1} \text{ stays within } S, \text{ possibly violating the optimization problem constraints.}
-\end{align*}
+As \(S\) is convex, we have that the points:
+\[
+    (1-\eta)x_k+\eta s(x_k)\in S    
+\]
+Are in \(S\) for all \(x_k\in S\) and \(\eta\in[0,1]\). It is important to enforce the restriction as otherwise \(x_{k+1}\) might not be feasible.
 
 \subsection*{Question 4} 
 
-We analyze four key inequalities (B1) to (B4) arising in the Frank-Wolfe algorithm under the assumptions that \( f \) is convex and continuously differentiable, and its gradient \( \nabla f \) is \( L \)-Lipschitz continuous.
+We analyze four key inequalities (B1) to (B4) under the assumptions that \( f \) is convex and continuously differentiable, and its gradient \( \nabla f \) is \( L \)-Lipschitz continuous.
 
-\subsection*{Inequality Analysis}
+\subsubsection*{Inequality Analysis}
 
-\subsection*{(B1) \( f(x_{k+1}) - f(x_k) \leq \nabla f(x_k)^\top (x_{k+1} - x_k) + \frac{L}{2} \|x_{k+1} - x_k\|^2 \)}
-This inequality stems from the first-order Taylor expansion and the Lipschitz continuity of \( \nabla f \), bounding the error of the linear approximation.
+\paragraph*{(B1) \( f(x_{k+1}) - f(x_k) \leq \nabla f(x_k)^\top (x_{k+1} - x_k) + \frac{L}{2} \|x_{k+1} - x_k\|^2 \)}\hfil\par
+This is due to \(\nabla f\) is \( L \)-Lipschitz continuous, and Theorem 3.2. from the lecture notes.
 
-\subsection*{(B2) \( \leq \eta_k \nabla f(x_k)^\top (s(x_k) - x_k) + \frac{L}{2} \eta_k^2 d_S^2 \)}
-Using the update formula \( x_{k+1} = (1 - \eta_k)x_k + \eta_k s(x_k) \) and the definition of \( d_S \), the diameter of \( S \), this inequality bounds the change in \( f \) in terms of the diameter of \( S \) and step size \( \eta_k \).
+\paragraph*{(B2) \( \leq \eta_k \nabla f(x_k)^\top (s(x_k) - x_k) + \frac{L}{2} \eta_k^2 d_S^2 \)} \hfil\par
+Using the update formula \( x_{k+1} = (1 - \eta_k)x_k + \eta_k s(x_k) \) and the definition of \( d_S \), the diameter of \( S \):
+\begin{align*}
+    \|x_{k+1} - x_k\|^2 &= \| (1 - \eta_k)x_k + \eta_k s(x_k) - x_k \|^2 \\
+    &= \| \eta_k (s(x_k) - x_k) \|^2 \\
+    &= \eta_k^2 \| s(x_k) - x_k \|^2 \\
+    &\leq \eta_k^2 d_S^2
+\end{align*}
+and
+\[
+  x_{k+1} - x_k = \eta_k (s(x_k) - x_k)
+\]
 
-\subsection*{(B3) \( \leq \eta_k \nabla f(x_k)^\top (x^* - x_k) + \frac{L}{2} \eta_k^2 d_S^2 \)}
-Given that \( s(x_k) \) minimizes the linear approximation over \( S \), the inequality follows by comparing \( s(x_k) \) to any \( x^* \in S \), including the optimal point.
+\paragraph*{(B3) \( \leq \eta_k \nabla f(x_k)^\top (x^* - x_k) + \frac{L}{2} \eta_k^2 d_S^2 \)}\hfil\par
+Given that \( s(x_k) \) minimizes the linear approximation over \( S \), the inequality follows by comparing \( \nabla f(x_k)^Ts(x_k) \) to \( \nabla f(x_k)^Tx^* \).
 
-\subsection*{(B4) \( \leq \eta_k (f(x^*) - f(x_k)) + \frac{L}{2} \eta_k^2 d_S^2 \)}
+\paragraph*{(B4) \( \leq \eta_k (f(x^*) - f(x_k)) + \frac{L}{2} \eta_k^2 d_S^2 \)}\hfil\par
 This follows from the convexity of \( f \), which implies \( f(x^*) - f(x_k) \geq \nabla f(x_k)^\top (x^* - x_k) \). Substituting this into (B3) yields (B4).
 
 
-\subsection*{Question 5} 
+\subsection*{Question 5} \hfil\par
 
-Given \( x_0 \in S \), let \( x_1 \) be produced by the Frank-Wolfe algorithm with \( \eta_0 = \frac{2}{0+2} = 1 \). We show that \( f(x_1) - f(x^*) \leq \frac{L}{2} d_S^2 \), where \( L \) is the Lipschitz constant of \( \nabla f \) and \( d_S \) is the diameter of \( S \).
+We plug \(k=0\) in the inequality (B4) from the previous question:
+\[
+  f(x_1)-f(x_0)\leq \eta_0(f(x^*)-f(x_0))+\frac{L}{2}\eta_0^2d_S^2
+\]
 
-\subsection*{Proof}
-
-\begin{enumerate}
-    \item The update rule for \( x_{k+1} \) in the Frank-Wolfe algorithm is \( x_{k+1} = (1 - \eta_k) x_k + \eta_k s(x_k) \). For \( k = 0 \), this becomes \( x_1 = s(x_0) \).
-
-    \item By the \( L \)-Lipschitz continuity of \( \nabla f \), we have
-    \[ f(y) \leq f(x) + \nabla f(x)^\top (y - x) + \frac{L}{2} \|y - x\|^2 \quad \text{for all } x, y \in S. \]
-
-    \item Setting \( x = x_1 \) and \( y = x^* \), we get
-    \[ f(x^*) \leq f(x_1) + \nabla f(x_1)^\top (x^* - x_1) + \frac{L}{2} \|x^* - x_1\|^2. \]
-
-    \item Rearranging, we obtain
-    \[ f(x_1) - f(x^*) \geq - \nabla f(x_1)^\top (x^* - x_1) - \frac{L}{2} \|x^* - x_1\|^2. \]
-
-    \item Since \( x_1 \) and \( x^* \) are in \( S \) and \( \|x^* - x_1\|^2 \leq d_S^2 \), we have
-    \[ f(x_1) - f(x^*) \leq \frac{L}{2} d_S^2. \]
-\end{enumerate}
-
-Thus, after the first iteration with \( \eta_0 = 1 \), the function value at \( x_1 \) is within \( \frac{L}{2} d_S^2 \) of the optimal value \( f(x^*) \).
-
-
+As \(\eta_0=1\) we have :
+\[
+  f(x_1)-f(x^*)\leq \frac{L}{2}d_S^2  
+\]
 
 \subsection*{Question 6} 
 
-We prove that for the Frank-Wolfe algorithm with step sizes \( \eta_k = \frac{2}{k+2} \), the inequality \( f(x_k) - f(x^*) \leq \frac{2Ld^2_S}{k+2} \) holds for all \( k \geq 1 \).
-
-\subsection*{Proof by Induction}
-
-\subsection*{Base Case (\( k = 1 \))}
-From the previous analysis, we have \( f(x_1) - f(x^*) \leq \frac{Ld^2_S}{2} \), which satisfies the inequality for \( k = 1 \), as \( \frac{2Ld^2_S}{1+2} = \frac{Ld^2_S}{2} \).
-
-\subsection*{Inductive Step}
-Assume the inequality holds for some \( k \geq 1 \):
-\[ f(x_k) - f(x^*) \leq \frac{2Ld^2_S}{k+2} \]
-We need to show it holds for \( k+1 \):
-\[ f(x_{k+1}) - f(x^*) \leq \frac{2Ld^2_S}{k+3} \]
-
-Using the inequality (B4) from the algorithm:
-\[ f(x_{k+1}) - f(x_k) \leq \eta_k (f(x^*) - f(x_k)) + \frac{L}{2} \eta_k^2 d^2_S \]
-where \( \eta_k = \frac{2}{k+2} \). Substituting and rearranging gives:
-\[ f(x_{k+1}) - f(x^*) \leq \left(1 - \frac{2}{k+2}\right) \frac{2Ld^2_S}{k+2} + \frac{L}{2} \left(\frac{2}{k+2}\right)^2 d^2_S \]
-\[ = \frac{kLd^2_S}{(k+2)^2} + \frac{2Ld^2_S}{(k+2)^2} \]
-\[ = \frac{(k+2)Ld^2_S}{(k+2)^2} \]
-\[ = \frac{Ld^2_S}{k+2} \]
-Using \( \frac{2}{k+2} \leq \frac{2}{k+3} \), we get:
-\[ f(x_{k+1}) - f(x^*) \leq \frac{2Ld^2_S}{k+3} \]
-
-Thus, by induction, the inequality holds for all \( k \geq 1 \).
-
-
-\subsection*{Question 7} 
-
-We show that the simplex \( \Delta_n = \{x \in \mathbb{R}^n | x_1, \ldots, x_n \geq 0 \text{ and } x_1 + \cdots + x_n = 1\} \) is convex, compact, and non-empty.
-
-A set is convex if for any two points in the set, the line segment between them is also in the set. For \( x, y \in \Delta_n \) and \( \lambda \in [0, 1] \), consider \( z = (1 - \lambda)x + \lambda y \). Since \( x_i, y_i \geq 0 \), each component \( z_i = (1 - \lambda)x_i + \lambda y_i \geq 0 \). Also, \( \sum_{i=1}^n z_i = (1 - \lambda)\sum_{i=1}^n x_i + \lambda\sum_{i=1}^n y_i = 1 \). Hence, \( z \in \Delta_n \), proving convexity.
-
-A set is compact if it is closed and bounded. \(\Delta_n\) is closed as it contains all its limit points. It is bounded because for all \( x \in \Delta_n \), \( 0 \leq x_i \leq 1 \) and \( \sum_{i=1}^n x_i = 1 \). Therefore, \(\Delta_n\) is compact.
-
-\(\Delta_n\) is non-empty as it contains at least the point \( x = (1, 0, \ldots, 0) \), which satisfies \( x_i \geq 0 \) and \( \sum_{i=1}^n x_i = 1 \).
-
-In conclusion, the simplex \( \Delta_n \) is convex, compact, and non-empty.
-
-\subsection*{Question 8} 
-
-
-Given a vector \( w \in \mathbb{R}^n \), we consider the problem of minimizing \( \langle w, x \rangle \) subject to \( x \in \Delta_n \), where \( \Delta_n \) is the simplex in \( \mathbb{R}^n \).
-
-The problem is formulated as:
-\[ \text{minimize} \quad \langle w, x \rangle \quad \text{subject to} \quad x \in \Delta_n. \]
-
-To minimize \( \langle w, x \rangle \), we allocate the entire weight to the component of \( x \) corresponding to the smallest component of \( w \). Let \( i^* = \arg \min_i w_i \). The minimizing vector \( x \) is such that \( x_{i^*} = 1 \) and \( x_i = 0 \) for all \( i \neq i^* \).
-
-
-The computational complexity of finding this solution is \( O(n) \), as it requires a linear scan to find the minimum component of the vector \( w \). The minimizing \( x \) is then directly obtained from the index of this minimum component.
-
-
-\subsection*{Question 9} 
+We will prove the inequality by induction on \(k\). The base case has been proven in the previous question. Let us assume that the inequality holds for all \(i\leq k\). Then we have:
 \begin{align*}
-\text{Consider the optimization problem } \min_{x \in \Delta_n} f(x) \text{ with } f(x) = \frac{1}{2} \|Ax - b\|^2. \\
-\text{The function } f \text{ is continuous and defined on the compact set } \Delta_n, \\
-\text{thus by the Weierstrass Extreme Value Theorem, } f \text{ attains its minimum on } \Delta_n, \\
-\text{ensuring the existence of a solution.} \\
-\text{However, the uniqueness of the solution depends on } A \text{ and } b. \\
-\text{For instance, if } A = (1, 0, 0, \ldots, 0) \text{ and } b < 0, \\
-\text{then all } x \in \Delta_n \text{ such that } x_1 = 0, x_2 = 0 \text{ minimize } f(x), \\
-\text{indicating that the solution is not necessarily unique.}
+    f(x_{k+1})-f(x^*) &= f(x_{k+1})-f(x_k)+f(x_k)-f(x^*)\\
+    &\leq \eta_k(f(x^*)-f(x_k))+\frac{L}{2}\eta_k^2d_S^2+f(x_k)-f(x^*)\\
+    &\leq (1-\eta_k)(f(x_k)-f(x^*))+\frac{L4d_S^2}{2(k+2)^2}\\
+    &\leq \frac{k}{k+2}\cdot \frac{2Ld_S^2}{k+2}+\frac{2Ld_S^2}{(k+2)^2}\\
+    &=Ld_S^2\frac{2k+2}{(k+2)^2}\leq Ld_S^2\frac{2}{k+3}\\
 \end{align*}
+
+This concludes the proof by induction. 
+
+\subsection*{Question 7}\hfil\par  
+
+\[
+  \Delta^n=\left\{x\in\mathbb{R}^n:\ \sum_{i=1}^{n}x_i=1;\ x_i\geq 0;\ \forall i\in\{1,2,\dots,n\}\right\}  \implies 
+\]
+\[
+  \Delta^n=\left\{x\in\mathbb{R}^n:\ Ax\leq b\right\}  
+\]
+Where :
+\[
+  A=\begin{pmatrix}
+    1 & 1 & \dots & 1\\
+    -1& -1 & \dots & -1\\
+    -1 & 0 & \dots & 0\\
+    0 & -1 & \dots & 0\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \dots & -1\\
+    \end{pmatrix}\in\mathbb{R}^{(n+2)\times n}
+\]
+and:
+\[
+  b=\begin{pmatrix}
+    1\\
+    -1\\
+    0\\
+    0\\
+    \vdots\\
+    0\\
+    \end{pmatrix}\in\mathbb{R}^{n+2}   
+\]
+
+Then clearly, \(\Delta^n\) is closed and convex, as it is a convex polytope. Moreover, we have:
+\[
+      \|x\|_\infty\leq 1, \forall \ x\in \Delta^n
+\]
+
+So \(\Delta^n\) is compact and non-empty since \((1,0,\dots,0)\in\Delta^n\). 
+\subsection*{Question 8} \hfil\par
+
+Let \(w=(w_1,w_2, \dots, w_n)\) and \(i\in \mathbb{N}\) such that \(w_i=\min(\{w_1,w_2,\dots, w_n\})\)
+    
+    Then we have:
+    \[
+      \langle w, x\rangle=\sum_{j=1}^{n}w_jx_j\geq \sum_{j=1}^{n}w_ix_j=w_i\sum_{j=1}^{n}x_j=w_i
+    \]  
+This is exactly attained for \(\bar x=(0,\dots ,1,\dots, 0)\) where the \(1\) is at the \(i\)-th position. So the linear program has at least one solution.
+
+The computational complexity of finding \(\bar x \) is \(O(n)\) as we need to find the minimum of \(n\) numbers.
+
+\subsection*{Question 9} \hfil\par
+
+\(f\) is a continuous map defined on a compact set, so the min is well-defined and attained by Weierstrass.
+
+The solution is not unique, for example, consider:
+\[
+  A=(1, 0, \dots 0)  
+\]
+
+And \(b<0\), then clearly all the points of the form \((0, x_2, \dots, x_n)\) are minimizers.
 
 \subsection*{Question 10} 
+From Exercise sheet 4 Exercise 2 we have that:
 
+\[
+  \nabla f(x)=A^T(Ax-b)
+\]
+
+\subsection*{Question 11} \hfil\par
+
+We analyze the line-search function \( g(\eta) = f((1 - \eta)x + \eta y) \) where \( x, y \in \Delta_n \) and \( f(x) = \frac{1}{2}\|Ax - b\|^2 \) to determine the optimal values of \( \eta \in [0, 1] \). Since \( f \) is convex, \( g \) is convex as well. So we search for solutions of the equation \( g'(\eta) = 0 \) to find the minimum of \( g \). We have:
 \begin{align*}
-f(x) &= \frac{1}{2} \|Ax - b\|^2 = \frac{1}{2} (Ax - b)^\top (Ax - b). \\
-f(x + tv) &= \frac{1}{2} \|A(x + tv) - b\|^2 \\
-&= \frac{1}{2} (A(x + tv) - b)^\top (A(x + tv) - b) \\
-&= \frac{1}{2} ((Ax + Atv - b)^\top (Ax + Atv - b)). \\
-\text{Using a Taylor expansion around } t = 0, \\
-f(x + tv) &= f(x) + t \langle u, A^\top (Ax + b) \rangle + O(t^2), \\
-\text{where } u &= \text{the derivative of } x + tv \text{ with respect to } t \text{ at } t = 0 \text{ (which is } v \text{)}. \\
-\text{Therefore, } \nabla f(x) &= A^\top (Ax - b).
+    g'(\eta)=\langle \nabla f((1 - \eta)x + \eta y), y-x\rangle  &= 0\\
+    \langle A^T(A((1 - \eta)x + \eta y)-b), y-x\rangle  &= 0\\
+    \langle A^T(b-Ax), y-x\rangle  &= \eta\|A(y-x)\|^2\implies 
 \end{align*}
 
+\[
+  \eta= \frac{\langle A^T(b-Ax), y-x\rangle}{\|A(y-x)\|^2}  
+\]
 
-
-\subsection*{Question 11} 
-
-We analyze the line-search function \( g(\eta) = f((1 - \eta)x + \eta y) \) where \( x, y \in \Delta_n \) and \( f(x) = \frac{1}{2}\|Ax - b\|^2 \) to determine the optimal values of \( \eta \in [0, 1] \).
-
-\subsection*{Expression for \( g(\eta) \)}
-\[ g(\eta) = \frac{1}{2} \|A((1 - \eta)x + \eta y) - b\|^2 \]
-
-\subsection*{Optimal Value of \( \eta \)}
-To find the optimal \(\eta\), we differentiate \(g(\eta)\) with respect to \(\eta\) and set the derivative to zero:
-\[ g'(\eta) = \frac{d}{d\eta} \frac{1}{2} \|A((1 - \eta)x + \eta y) - b\|^2 \]
-\[ = (A((1 - \eta)x + \eta y) - b)^\top A(y - x) \]
-Setting \( g'(\eta) = 0 \) gives:
-\[ (A((1 - \eta)x + \eta y) - b)^\top A(y - x) = 0 \]
-Solving this equation for \(\eta\) gives the optimal value.
-
-\subsection*{Closed-Form Formula}
-A closed-form expression for \(\eta\) depends on the specific structure of \(A\), \(b\), \(x\), and \(y\). Without additional assumptions, the exact solution might be complex or not directly obtainable.
-
-
+If this value is not in \([0,1]\) then we set \(\eta:=0\) if \(\eta<0\) and \(\eta:=1\) if \(\eta>1\).
 \subsection*{Question 12} 
 \lstinputlisting[
     frame=single,
@@ -506,7 +485,7 @@ A closed-form expression for \(\eta\) depends on the specific structure of \(A\)
     \caption{Plot of the Frank-Wolfe gap versus the number of iterations.}
     \label{fig:my_label}
 \end{figure}
-
+\pagebreak
 \subsection*{Question 14} 
 \begin{figure}[h]
     \centering
@@ -515,7 +494,8 @@ A closed-form expression for \(\eta\) depends on the specific structure of \(A\)
     \label{fig:next}
 \end{figure}
 
-\newpage
+\pagebreak
+
 
 \section*{Part 3 : KKT conditions and constraint qualifications}
 
