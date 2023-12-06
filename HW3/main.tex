@@ -8,6 +8,7 @@
 \usepackage{wasysym}
 \graphicspath{ {./images/} }
 \usepackage{subcaption}
+\usepackage{listings}
 \usepackage{csquotes}
 \usepackage{wrapfig}
 \usepackage[colorlinks, bookmarks=false, linkcolor=black, urlcolor=blue, citecolor=black]{hyperref}
@@ -15,8 +16,8 @@
 \usepackage[top=2.5cm, bottom=3 cm, left=3.5cm, right=3.5cm]{geometry}
 \usepackage{xcolor}
 
-\pagecolor{black}
-\color{white}
+% \pagecolor{black}
+% \color{white}
 
 \newcommand*{\proj}{\text{Proj}}
 \newcommand*{\es}{\mathcal{E}}
@@ -481,11 +482,38 @@ A closed-form expression for \(\eta\) depends on the specific structure of \(A\)
 
 
 \subsection*{Question 12} 
-
+\lstinputlisting[
+    frame=single,
+    numbers=left,
+    style=Matlab-Pyglike]{nablaf.m}
+    \lstinputlisting[
+    frame=single,
+    numbers=left,
+    style=Matlab-Pyglike]{linearsubproblem.m}
+    \lstinputlisting[
+    frame=single,
+    numbers=left,
+    style=Matlab-Pyglike]{frank_wolfe.m}
 \subsection*{Question 13} 
+\lstinputlisting[
+    frame=single,
+    numbers=left,
+    style=Matlab-Pyglike]{main.m}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gaps.png}
+    \caption{Plot of the Frank-Wolfe gap versus the number of iterations.}
+    \label{fig:my_label}
+\end{figure}
 
 \subsection*{Question 14} 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{compare.png}
+    \caption{Comparison of the Frank-Wolfe algorithm, the true value and the vector obtained by the Matlab solver.}
+    \label{fig:next}
+\end{figure}
 
 \newpage
 
