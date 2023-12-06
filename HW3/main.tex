@@ -52,7 +52,7 @@ We want to show that \(\proj_{Q'}(z)=\proj_Q(z) \). Let \(x\in Q\setminus Q'\). 
 \[
     \frac{1}{2}\|x-z\|^2>\frac{1}{2}\|x_0-z\|^2\geq \min_{y\in Q'}\frac{1}{2}\|y-z\|^2
 \]
-
+ 
 So the minimizer of \(\frac{1}{2}\|y-z\|^2 \) on \(Q'\) is also the minimizer of \(\frac{1}{2}\|y-z\|^2\) on \(Q\). Therefore, \(\proj_{Q'}(z)=\proj_Q(z) \).
 
 \subsection*{Question 2} 
@@ -312,33 +312,25 @@ So, we have:
 
 
 \subsection*{Question 1} 
+\text{Let } g : S \rightarrow \mathbb{R} \text{ be defined by } g(x) = \langle w, x \rangle \text{ for a fixed } w \text{ and for all } x \in S. \\
+\text{Since } g \text{ is a continuous function (as the inner product of two vectors in } \mathbb{R}^n \text{ is continuous) and } \\
+\text{since } S \text{ is compact, the Weierstrass Extreme Value Theorem guarantees that } g \text{ attains its  } \\
+\text{minimum and maximum on } S.
+
+
 
 \subsection*{Question 2} 
-To demonstrate that the minimization problem may have multiple solutions, consider the following example:
+\text{Let } S &= [-1,1] \times \{0\} \text{ and } w = (0, 1). \\
+\text{Then, for any } x \in S, \text{ we have } \langle w, x \rangle &= 0. \\
+\text{Thus, every point in } S \text{ minimizes the function } \langle w, x \rangle, \text{ leading to multiple solutions.}
 
-\begin{itemize}
-    \item \textbf{Set \( S \)}: Let \( S \) be a line segment in \( \mathbb{R}^2 \) defined as \( S = \{ (1, y) : 0 \leq y \leq 1 \} \).
-    \item \textbf{Linear Function}: Consider a linear function \( \langle w, x \rangle \) with \( w = (0, 0) \). For any \( x \in S \), we have \( \langle w, x \rangle = 0 \).
-\end{itemize}
-
-In this case, every point in \( S \) minimizes the function \( \langle w, x \rangle \) as the value is zero for all \( x \in S \). Hence, the problem has multiple solutions, with every point in the set \( S \) being a solution.
 
 \subsection*{Question 3} 
 
 \subsection*{Why is the Restriction \( 0 \leq \eta_k \leq 1 \) Important?}
-
-\begin{enumerate}
-    \item \textbf{Feasibility}: The feasible set \( S \) is assumed to be convex. By convexity, for any \( x, y \in S \) and \( \lambda \in [0, 1] \), the convex combination \( (1-\lambda)x + \lambda y \) is also in \( S \). In the algorithm, both \( x_k \) and \( s(x_k) \) are in \( S \), so for \( \eta_k \) in \( [0, 1] \), the updated point \( (1-\eta_k)x_k + \eta_k s(x_k) \) remains within \( S \).
-
-    \item \textbf{Convergence}: The step size \( \eta_k \) controls the magnitude of the move towards the direction of minimization. Values of \( \eta_k \) outside the interval \( [0, 1] \) can lead to overshooting or even divergence. Specifically, \( \eta_k > 1 \) may cause the algorithm to take excessively large steps, while negative values of \( \eta_k \) would reverse the direction of the update, both hindering convergence.
-
-    \item \textbf{Controlled Progress}: The interval \( [0, 1] \) allows for dynamic adjustment of \( \eta_k \) to control the algorithm’s progress. Smaller values of \( \eta_k \) can be used for cautious steps near the optimal solution, enhancing stability and precision.
-
-    \item \textbf{Balance Between Exploration and Exploitation}: \( \eta_k \) balances exploration of the feasible set \( S \) and exploitation towards the minimizer of the linearized function. \( \eta_k = 0 \) implies no movement (pure exploitation), while \( \eta_k = 1 \) means moving entirely towards the new direction (pure exploration). Intermediate values facilitate a balanced approach.
-\end{enumerate}
-
-In conclusion, the restriction \( 0 \leq \eta_k \leq 1 \) in the Frank-Wolfe algorithm is essential for ensuring feasibility, convergence, controlled progress, and a balanced approach between exploration and exploitation.
-
+\text{In the Frank–Wolfe algorithm, enforcing } 0 \leq \eta_k \leq 1 \text{ ensures } x_{k+1} \text{ remains within the feasible set } S. \\
+\text{Since } S \text{ is convex, the convex combination } (1 - \eta_k)x_k + \eta_k s(x_k) \text{ lies within } S \text{ for } \eta_k \text{ in } [0, 1]. \\
+\text{Without this restriction, there's no guarantee that } x_{k+1} \text{ stays within } S, \text{ possibly violating the optimization problem constraints.}
 
 \subsection*{Question 4} 
 
@@ -417,103 +409,52 @@ Thus, by induction, the inequality holds for all \( k \geq 1 \).
 
 We show that the simplex \( \Delta_n = \{x \in \mathbb{R}^n | x_1, \ldots, x_n \geq 0 \text{ and } x_1 + \cdots + x_n = 1\} \) is convex, compact, and non-empty.
 
-\subsection*{Convexity}
 A set is convex if for any two points in the set, the line segment between them is also in the set. For \( x, y \in \Delta_n \) and \( \lambda \in [0, 1] \), consider \( z = (1 - \lambda)x + \lambda y \). Since \( x_i, y_i \geq 0 \), each component \( z_i = (1 - \lambda)x_i + \lambda y_i \geq 0 \). Also, \( \sum_{i=1}^n z_i = (1 - \lambda)\sum_{i=1}^n x_i + \lambda\sum_{i=1}^n y_i = 1 \). Hence, \( z \in \Delta_n \), proving convexity.
 
-\subsection*{Compactness}
 A set is compact if it is closed and bounded. \(\Delta_n\) is closed as it contains all its limit points. It is bounded because for all \( x \in \Delta_n \), \( 0 \leq x_i \leq 1 \) and \( \sum_{i=1}^n x_i = 1 \). Therefore, \(\Delta_n\) is compact.
 
-\subsection*{Non-emptiness}
 \(\Delta_n\) is non-empty as it contains at least the point \( x = (1, 0, \ldots, 0) \), which satisfies \( x_i \geq 0 \) and \( \sum_{i=1}^n x_i = 1 \).
 
 In conclusion, the simplex \( \Delta_n \) is convex, compact, and non-empty.
 
 \subsection*{Question 8} 
 
-\title{Minimization Problem on the Simplex \( \Delta_n \)}
-\maketitle
 
 Given a vector \( w \in \mathbb{R}^n \), we consider the problem of minimizing \( \langle w, x \rangle \) subject to \( x \in \Delta_n \), where \( \Delta_n \) is the simplex in \( \mathbb{R}^n \).
 
-\subsection*{Minimum of the Problem}
 The problem is formulated as:
 \[ \text{minimize} \quad \langle w, x \rangle \quad \text{subject to} \quad x \in \Delta_n. \]
 
-\subsection*{Strategy to Attain the Smallest Value}
 To minimize \( \langle w, x \rangle \), we allocate the entire weight to the component of \( x \) corresponding to the smallest component of \( w \). Let \( i^* = \arg \min_i w_i \). The minimizing vector \( x \) is such that \( x_{i^*} = 1 \) and \( x_i = 0 \) for all \( i \neq i^* \).
 
-\subsection*{Computational Complexity}
+
 The computational complexity of finding this solution is \( O(n) \), as it requires a linear scan to find the minimum component of the vector \( w \). The minimizing \( x \) is then directly obtained from the index of this minimum component.
 
 
 \subsection*{Question 9} 
-
-Given the optimization problem \( \min_{x \in \Delta_n} f(x) \) with \( f(x) = \frac{1}{2} \|Ax - b\|^2 \), we analyze whether this problem always has a solution and if the solution is unique.
-
-\subsection*{Existence of a Solution}
-\begin{itemize}
-    \item \textbf{Convexity of \( f(x) \)}: The function \( f(x) = \frac{1}{2} \|Ax - b\|^2 \) is convex as it is the composition of a convex function (norm squared) with an affine function.
-    \item \textbf{Convexity and Compactness of \( \Delta_n \)}: The simplex \( \Delta_n \) is convex and compact.
-    \item \textbf{Existence of Solution}: A convex function over a compact convex set attains its minimum. Hence, the problem always has at least one solution.
-\end{itemize}
-
-\subsection*{Uniqueness of the Solution}
-\begin{itemize}
-    \item \textbf{Strict Convexity}: Strict convexity is necessary for uniqueness. The function \( f(x) \) is strictly convex if the matrix \( A \) has full column rank. However, with \( m < n \), \( A \) cannot have full column rank.
-    \item \textbf{Multiple Solutions}: When \( A \) does not have full column rank, there can be multiple minimizers of \( f(x) \), due to directions in which \( A \) is not injective.
-\end{itemize}
-
-In conclusion, the optimization problem always has a solution, but it does not always have a unique solution due to the potential rank deficiency of \( A \).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Given the optimization problem \( \min_{x \in \Delta_n} f(x) \) with \( f(x) = \frac{1}{2} \|Ax - b\|^2 \), we analyze whether this problem always has a solution and if the solution is unique.
-
-\subsection*{Existence of a Solution}
-\begin{itemize}
-    \item \textbf{Convexity of \( f(x) \)}: The function \( f(x) = \frac{1}{2} \|Ax - b\|^2 \) is convex as it is the composition of a convex function (norm squared) with an affine function.
-    \item \textbf{Convexity and Compactness of \( \Delta_n \)}: The simplex \( \Delta_n \) is convex and compact.
-    \item \textbf{Existence of Solution}: A convex function over a compact convex set attains its minimum. Hence, the problem always has at least one solution.
-\end{itemize}
-
-\subsection*{Uniqueness of the Solution}
-\begin{itemize}
-    \item \textbf{Strict Convexity}: Strict convexity is necessary for uniqueness. The function \( f(x) \) is strictly convex if the matrix \( A \) has full column rank. However, with \( m < n \), \( A \) cannot have full column rank.
-    \item \textbf{Multiple Solutions}: When \( A \) does not have full column rank, there can be multiple minimizers of \( f(x) \), due to directions in which \( A \) is not injective.
-\end{itemize}
-
-In conclusion, the optimization problem always has a solution, but it does not always have a unique solution due to the potential rank deficiency of \( A \).
+\text{Consider the optimization problem } \min_{x \in \Delta_n} f(x) \text{ with } f(x) = \frac{1}{2} \|Ax - b\|^2. \\
+\text{The function } f \text{ is continuous and defined on the compact set } \Delta_n, \\
+\text{thus by the Weierstrass Extreme Value Theorem, } f \text{ attains its minimum on } \Delta_n, \\
+\text{ensuring the existence of a solution.} \\
+\text{However, the uniqueness of the solution depends on } A \text{ and } b. \\
+\text{For instance, if } A = (1, 0, 0, \ldots, 0) \text{ and } b < 0, \\
+\text{then all } x \in \Delta_n \text{ such that } x_1 = 0, x_2 = 0 \text{ minimize } f(x), \\
+\text{indicating that the solution is not necessarily unique.}
 
 
 \subsection*{Question 10} 
 
+\begin{align*}
+f(x) &= \frac{1}{2} \|Ax - b\|^2 = \frac{1}{2} (Ax - b)^\top (Ax - b). \\
+f(x + tv) &= \frac{1}{2} \|A(x + tv) - b\|^2 \\
+&= \frac{1}{2} (A(x + tv) - b)^\top (A(x + tv) - b) \\
+&= \frac{1}{2} ((Ax + Atv - b)^\top (Ax + Atv - b)). \\
+\text{Using a Taylor expansion around } t = 0, \\
+f(x + tv) &= f(x) + t \langle u, A^\top (Ax + b) \rangle + O(t^2), \\
+\text{where } u &= \text{the derivative of } x + tv \text{ with respect to } t \text{ at } t = 0 \text{ (which is } v \text{)}. \\
+\text{Therefore, } \nabla f(x) &= A^\top (Ax - b).
+\end{align*}
 
-\title{Gradient of the Function for Frank-Wolfe Algorithm}
-\maketitle
-
-We derive the gradient of the function \( f(x) = \frac{1}{2} \|Ax - b\|^2 \) for applying the Frank-Wolfe algorithm to the problem \( \min_{x \in \Delta_n} f(x) \).
-
-The function \( f(x) \) is given by:
-\[ f(x) = \frac{1}{2} \|Ax - b\|^2 = \frac{1}{2} (Ax - b)^\top (Ax - b). \]
-
-Differentiating \( f(x) \) with respect to \( x \) using matrix calculus, we obtain the gradient of \( f(x) \):
-\[ \nabla f(x) = A^\top (Ax - b). \]
-
-This gradient represents the direction of the steepest ascent at any point \( x \) for the function \( f(x) \) and is essential for determining the search direction in each iteration of the Frank-Wolfe algorithm.
 
 
 \subsection*{Question 11} 
