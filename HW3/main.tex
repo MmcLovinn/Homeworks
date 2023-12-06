@@ -544,63 +544,85 @@ A closed-form expression for \(\eta\) depends on the specific structure of \(A\)
 
 \newpage
 
-\subsection*{1}
+\section*{Part 3 : KKT conditions and constraint qualifications}
 
-(4):
+\subsection*{Question 1}\hfil\par
+Notice that:
+\[f_i(x)\leq y;\ \forall \ i=1,\dots,N\iff\]
+\[\max_{i=1,\dots,N}f_i(x)\leq y\iff \]
+\[f(x)\leq y \implies \]
+\[\min_xf(x)\leq\min_{(x,y)\in S}y\]
 
-\[
-\min_{x \in \mathbb{R}^n} f(x), \quad \text{where} \quad f(x) = \max_{i = 1, \ldots, N} f_i(x).
-\]
- (5):
+The other inequality is trivial as \((x,f(x))\in S\). So we can easily conclude that the 2 programs have the same optimal value.
 
-\[
-\min_{(x,y) \in S} y, \quad \text{where} \quad S = \{ (x, y) \in \mathbb{R}^n \times \mathbb{R} \,|\, f_i(x) - y \leq 0, \, i = 1, \ldots, N \}.
-\]
-
-To establish the equivalence in optimal value between problems (4) and (5), we proceed as follows:
-
-For any \( x \in \mathbb{R}^n \), define \( y_x = \max_{i=1,\ldots,N} f_i(x) \). Clearly, \( y_x \geq f_i(x) \) for all \( i \), which implies \( (x, y_x) \in S \). This means for every feasible \( x \) in problem (4), there is a corresponding feasible \( (x, y_x) \) in problem (5) with the same objective value. Conversely, for any feasible \( (x, y) \) in problem (5), since \( f_i(x) \leq y \) for all \( i \), it follows that \( \max_{i=1,\ldots,N} f_i(x) \leq y \). Therefore, the optimal value of \( x \) in problem (4) cannot exceed the optimal value of \( (x, y) \) in problem (5). This establishes that problems (4) and (5) have the same optimal value.
-
-\subsection*{2}
-
-The KKT conditions for problem (5) involve:
-
-\begin{itemize}
-    \item Primal feasibility: \( f_i(x) - y \leq 0 \) for all \( i \).
-    \item Dual feasibility: \( \lambda_i \geq 0 \) for all \( i \).
-    \item Complementary slackness: \( \lambda_i (f_i(x) - y) = 0 \) for all \( i \).
-    \item Stationarity: The gradient of the Lagrangian with respect to \( x \) and \( y \) is zero.
-\end{itemize}
-
-The Lagrangian for problem (5) is:
+\subsection*{Question 2}\hfil\par
+Notice that the constraints for \(S\) are:
 
 \[
-\mathcal{L}(x, y, \lambda) = y + \sum_{i=1}^N \lambda_i (f_i(x) - y).
+    g_i(x,y)=f_i(x)-y\leq 0;\ \forall \ i=1,\dots,N
 \]
 
-The stationarity condition then yields:
+It is easy to see that:
+\[
+    \nabla g_i(x,y)=\begin{pmatrix}
+    \nabla f_i(x)\\
+     -1
+    \end{pmatrix}    
+\]
 
+The KKT conditions for \((x,y)\in S\) are: \((x,y)\) is a KKT point if there exists \(\lambda\in\mathbb{R}^N\), with \(\lambda\geq0\) such that:
+\[
+    -(0,\dots,0,1)=   \sum_{i=1}^{N}\lambda_i(\nabla f_i(x)^T,-1)    
+\]
+and
+\[
+    \lambda_i(f_i(x)-y)=0;\ \forall\ i=1,\dots,N  
+\]
+\subsection*{Question 3}\hfil\par
+Let \(n=1\) and:
+\[
+    f_1(x)=x,\ f_2(x)=x^2,\ f_3(x)=x^3
+\]
 
-\begin{align*}
-\nabla_x \mathcal{L}(x, y, \lambda) &= \sum_{i=1}^N \lambda_i \nabla f_i(x) = 0, \\
-\nabla_y \mathcal{L}(x, y, \lambda) &= 1 - \sum_{i=1}^N \lambda_i = 0.
-\end{align*}
+Then:
+\[
+  \nabla g_1(x,y)=\begin{pmatrix}
+    1\\
+     -1
+    \end{pmatrix},\ \nabla g_2(x,y)=\begin{pmatrix}
+    2x\\
+     -1
+    \end{pmatrix},\ \nabla g_3(x,y)=\begin{pmatrix}
+    3x^2\\
+     -1
+    \end{pmatrix}
+\]
 
+For \((x,y)=(1,1)\in S\), it is clear that LICQ doesn't hold as \(\nabla g_1(1,1),\ \nabla g_2(1,1),\ \nabla g_3(1,1)\) are linearly dependent as a family of 3 vectors in \(\mathbb{R}^2\) (\(g_i(1,1)=0\) for all \(i\)).
 
-\subsection*{3. Example of Functions \( f_1, \ldots, f_N \) Where LICQ does not Hold}
+\subsection*{Question 4}\hfil\par
+Let \(I(x,y)=\{i\in\{1,\dots ,N\}\ |\ g_i(x,y)=0\}\). Then for MFCQ to hold, then for all \((x,y)\in S\) we need to find a point \((\tilde x, \tilde y)\in S\) such that:
+\[
+  \langle \nabla g_i(x,  y), (\tilde x- x, \tilde y-y)\rangle<0;\ \forall\ i\in I(x)
+\]
+Substituting \(\nabla g_i\), we need to find \((\tilde x, \tilde y)\in S\) such that:
+\[
+    \left\langle \begin{pmatrix}
+        \nabla f_i(x)\\
+         -1
+        \end{pmatrix}    , (\tilde x- x, \tilde y-y)\right\rangle<0;\ \forall\ i\in I(x)
+\]
+But notice that if we set \(\tilde x:=x\) and \(\tilde y:=y+1\) then:
+\[
+    \left\langle \begin{pmatrix}
+        \nabla f_i(x)\\
+         -1
+        \end{pmatrix}    , (0, 1)\right\rangle=\langle-1,1\rangle=-1<0;\ \forall\ i\in I(x)
+\]
 
-Consider the functions \( f_1(x) = x^2 \) and \( f_2(x) = (x-1)^2 \) for \( x \in \mathbb{R} \) (here \( N = 2 \)). At the point \( x = 0.5 \), both \( f_1 \) and \( f_2 \) are active, and their gradients are equal (\( \nabla f_1(0.5) = \nabla f_2(0.5) \)). Thus, the gradients of the active constraints are not linearly independent, violating the Linear Independence Constraint Qualification (LICQ).
+So MFCQ holds for all \((x,y)\in S\).
 
-\subsection*{4}
-
-The Mangasarian-Fromovitz Constraint Qualification (MFCQ) requires the existence of a direction where all the inequality constraints are strictly decreasing. For problem (5), the constraint is \( f_i(x) - y \leq 0 \). By increasing \( y \) slightly (while keeping \( x \) constant), we strictly decrease \( f_i(x) - y \) for all \( i \). Therefore, MFCQ is always satisfied for any feasible point in problem (5), as there is always a direction (increasing \( y \)) that strictly reduces all the constraints.
-
-
-
-
-
-
-
+(\textbf{Note}:\((x,y+1)\in S\) as \(y+1>y\geq f_i(x)\), for all \(i\))
 \end{document}
 
 
