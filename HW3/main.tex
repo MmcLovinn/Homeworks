@@ -311,26 +311,29 @@ So, we have:
 \section*{Part 2 : A Frank-Wolfe algorithm} 
 
 
-\subsection*{Question 1} 
-\text{Let } g : S \rightarrow \mathbb{R} \text{ be defined by } g(x) = \langle w, x \rangle \text{ for a fixed } w \text{ and for all } x \in S. \\
+\subsection*{Question 1}
+\begin{align*}
+    \text{Let } g : S \rightarrow \mathbb{R} \text{ be defined by } g(x) = \langle w, x \rangle \text{ for a fixed } w \text{ and for all } x \in S. \\
 \text{Since } g \text{ is a continuous function (as the inner product of two vectors in } \mathbb{R}^n \text{ is continuous) and } \\
 \text{since } S \text{ is compact, the Weierstrass Extreme Value Theorem guarantees that } g \text{ attains its  } \\
 \text{minimum and maximum on } S.
-
-
+\end{align*} 
 
 \subsection*{Question 2} 
+\begin{align*}
 \text{Let } S &= [-1,1] \times \{0\} \text{ and } w = (0, 1). \\
 \text{Then, for any } x \in S, \text{ we have } \langle w, x \rangle &= 0. \\
 \text{Thus, every point in } S \text{ minimizes the function } \langle w, x \rangle, \text{ leading to multiple solutions.}
-
+\end{align*}
 
 \subsection*{Question 3} 
 
 \subsection*{Why is the Restriction \( 0 \leq \eta_k \leq 1 \) Important?}
+\begin{align*}
 \text{In the Frank–Wolfe algorithm, enforcing } 0 \leq \eta_k \leq 1 \text{ ensures } x_{k+1} \text{ remains within the feasible set } S. \\
 \text{Since } S \text{ is convex, the convex combination } (1 - \eta_k)x_k + \eta_k s(x_k) \text{ lies within } S \text{ for } \eta_k \text{ in } [0, 1]. \\
 \text{Without this restriction, there's no guarantee that } x_{k+1} \text{ stays within } S, \text{ possibly violating the optimization problem constraints.}
+\end{align*}
 
 \subsection*{Question 4} 
 
@@ -432,6 +435,7 @@ The computational complexity of finding this solution is \( O(n) \), as it requi
 
 
 \subsection*{Question 9} 
+\begin{align*}
 \text{Consider the optimization problem } \min_{x \in \Delta_n} f(x) \text{ with } f(x) = \frac{1}{2} \|Ax - b\|^2. \\
 \text{The function } f \text{ is continuous and defined on the compact set } \Delta_n, \\
 \text{thus by the Weierstrass Extreme Value Theorem, } f \text{ attains its minimum on } \Delta_n, \\
@@ -440,7 +444,7 @@ The computational complexity of finding this solution is \( O(n) \), as it requi
 \text{For instance, if } A = (1, 0, 0, \ldots, 0) \text{ and } b < 0, \\
 \text{then all } x \in \Delta_n \text{ such that } x_1 = 0, x_2 = 0 \text{ minimize } f(x), \\
 \text{indicating that the solution is not necessarily unique.}
-
+\end{align*}
 
 \subsection*{Question 10} 
 
